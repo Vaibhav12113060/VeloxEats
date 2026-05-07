@@ -6,9 +6,11 @@ const addressSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  street: String,
-  city: String,
-  state: String,
+  name: { type: String, required: true }, // e.g., "Home", "Work"
+  street: { type: String, required: true },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  postal_code: { type: String, required: true },
   lat: Number,
   lon: Number,
 });

@@ -6,11 +6,17 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true },
     password: { type: String, required: true },
-    role: { type: String, enum: ["customer", "admin"], default: "customer" },
+    role: {
+      type: String,
+      enum: ["customer", "admin", "delivery_agent", "chef"],
+      default: "customer",
+    },
+    default_address: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
+    },
   },
   { timestamps: { createdAt: "created_at", updatedAt: false } },
 );
-
-userSchema.index({ email: 1 });
 
 module.exports = mongoose.model("User", userSchema);

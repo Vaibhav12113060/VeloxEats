@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
 
 const cartItemSchema = new mongoose.Schema({
-  cart_id: { type: mongoose.Schema.Types.ObjectId, ref: "Cart" },
-  menu_item_id: { type: mongoose.Schema.Types.ObjectId, ref: "MenuItem" },
-  quantity: Number,
-  price_at_time: Number,
-  added_by: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  menuItem: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "MenuItem",
+    required: true,
+  },
+  quantity: { type: Number, required: true, min: 1, default: 1 },
 });
 
-cartItemSchema.index({ cart_id: 1 });
+cartItemSchema.index({ user: 1 });
 
 module.exports = mongoose.model("CartItem", cartItemSchema);
