@@ -13,7 +13,7 @@ const {
 const {
   protect,
   adminOnly,
-  chefOnly,
+  restaurantOnly,
 } = require("../Middlewares/authMiddleware");
 
 // Customer routes
@@ -23,7 +23,12 @@ router.get("/:id", protect, getOrderById);
 
 // Admin / Staff routes
 router.get("/", protect, adminOnly, getAllOrders);
-router.get("/restaurant/:restaurantId", protect, chefOnly, getRestaurantOrders);
-router.put("/:id/status", protect, chefOnly, updateOrderStatus); // chefOnly allows admin too
+router.get(
+  "/restaurant/:restaurantId",
+  protect,
+  restaurantOnly,
+  getRestaurantOrders,
+);
+router.put("/:id/status", protect, restaurantOnly, updateOrderStatus); // chefOnly allows admin too
 
 module.exports = router;

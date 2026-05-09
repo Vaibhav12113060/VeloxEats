@@ -7,27 +7,34 @@ const {
   getSingleRestaurant,
   updateRestaurant,
   deleteRestaurant,
+  getNearbyRestaurants,
+  getMyRestaurant,
 } = require("../Controllers/restaurantController");
 
-const { protect, adminOnly } = require("../Middlewares/authMiddleware");
+const { protect, restaurantOnly } = require("../Middlewares/authMiddleware");
 const { upload } = require("../Config/cloudinary");
 
 router.post(
   "/create",
   protect,
-  adminOnly,
+  restaurantOnly,
   upload.single("image"),
   createRestaurant,
 );
 router.get("/", getAllRestaurants);
+
+// Get My Restaurant
+router.get("/my-restaurant", protect, restaurantOnly, getMyRestaurant);
+// Nearby Restaurants
+router.get("/nearby", getNearbyRestaurants);
 router.get("/:id", getSingleRestaurant);
 router.put(
   "/:id",
   protect,
-  adminOnly,
+  restaurantOnly,
   upload.single("image"),
   updateRestaurant,
 );
-router.delete("/:id", protect, adminOnly, deleteRestaurant);
+router.delete("/:id", protect, restaurantOnly, deleteRestaurant);
 
 module.exports = router;

@@ -9,22 +9,22 @@ const {
   deleteMenuItem,
 } = require("../Controllers/menuItemController");
 
-const { protect, chefOnly } = require("../Middlewares/authMiddleware");
+const { protect, restaurantOnly } = require("../Middlewares/authMiddleware");
 const { upload } = require("../Config/cloudinary");
 
 // Admin/Chef can create, update, delete menu items
 router.post(
   "/create",
   protect,
-  chefOnly,
+  restaurantOnly,
   upload.single("image"),
   createMenuItem,
 );
 router
   .route("/:id")
   .get(getMenuItemById)
-  .put(protect, chefOnly, upload.single("image"), updateMenuItem)
-  .delete(protect, chefOnly, deleteMenuItem);
+  .put(protect, restaurantOnly, upload.single("image"), updateMenuItem)
+  .delete(protect, restaurantOnly, deleteMenuItem);
 
 router.get("/restaurant/:restaurantId", getMenuItemsByRestaurant);
 
