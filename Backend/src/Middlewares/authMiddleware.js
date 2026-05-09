@@ -69,9 +69,9 @@ const adminOnly = async (req, res, next) => {
 
 // ================= CHEF ACCESS =================
 
-const chefOnly = async (req, res, next) => {
+const restaurantOnly = async (req, res, next) => {
   try {
-    if (req.user.role !== "chef" && req.user.role !== "admin") {
+    if (req.user.role !== "restaurant" && req.user.role !== "admin") {
       return res.status(403).json({
         success: false,
         message: "Access denied. Chefs or Admins only.",
@@ -102,6 +102,6 @@ const deliveryAgentOnly = async (req, res, next) => {
 module.exports = {
   protect,
   adminOnly,
-  chefOnly,
+  restaurantOnly,
   deliveryAgentOnly,
 };
