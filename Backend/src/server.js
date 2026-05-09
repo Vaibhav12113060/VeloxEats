@@ -3,6 +3,7 @@ const colors = require("colors");
 const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
+dotenv.config();
 
 const connectDB = require("./Config/db.js");
 
@@ -17,7 +18,6 @@ const orderRoutes = require("./Routes/orderRoutes.js");
 const orderItemRoutes = require("./Routes/orderItemRoutes.js");
 const paymentRoutes = require("./Routes/paymentRoutes.js");
 
-dotenv.config();
 connectDB();
 
 const app = express();
